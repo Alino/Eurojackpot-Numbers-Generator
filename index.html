@@ -1,105 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="manifest" href="/manifest.json">
-    <title>Random Eurojackpot Numbers Generator</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      h1 {
-        margin: 0;
-        padding: 1rem;
-        background-color: #008cba;
-        color: #fff;
-      }
-      p {
-        margin: 1rem;
-        font-size: 1.2rem;
-      }
-      button {
-        margin-left: 1rem;
-        font-size: 1.2rem;
-        padding: 0.5rem;
-        background-color: #008cba;
-        color: #fff;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #0077a3;
-      }
-      .badge {
-        font-size: 1.5rem;
-        font-weight: bold;
-        background-color: #008cba;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Random Eurojackpot Numbers Generator</h1>
-    <p>Click the button below to generate six random numbers between 1 and 50, and two random Euro numbers between 1 and 10:</p>
-    <div>
-      <button onclick="generateNumbers()">Generate Numbers</button>
-    </div>
-    <p>Generated numbers: <span id="generatedNumbers"></span></p>
-    <div>
-      <button onclick="sendSms()">Send SMS</button>
-    </div>
-    <script>
-      function generateNumbers() {
-        const numbers = [];
-        for (let i = 0; i < 6; i++) {
-          const number = Math.floor(Math.random() * 50) + 1;
-          if (!numbers.includes(number)) {
-            numbers.push(number);
-          } else {
-            i--;
-          }
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="manifest" href="/manifest.json">
+  <title>Random Eurojackpot Numbers Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 1rem;
+      background-color: #008cba;
+      color: #fff;
+    }
+
+    p {
+      margin: 1rem;
+      font-size: 1.2rem;
+    }
+
+    button {
+      margin-left: 1rem;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      background-color: #008cba;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0077a3;
+    }
+
+    .badge {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background-color: #008cba;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Random Eurojackpot Numbers Generator</h1>
+  <p></p>
+  <div>
+    <button onclick="generateNumbers()">Generate Numbers</button>
+  </div>
+  <p>Generated numbers: <span id="generatedNumbers"></span></p>
+  <div>
+    <button onclick="sendSms()">Send SMS</button>
+  </div>
+  <script>
+    function generateUniqueNumbers(count, max) {
+      const numbers = [];
+      while (numbers.length < count) {
+        const number = Math.floor(Math.random() * max) + 1;
+        if (!numbers.includes(number)) {
+          numbers.push(number);
         }
-        const euroNumbers = [];
-        for (let i = 0; i < 2; i++) {
-          const euroNumber = Math.floor(Math.random() * 10) + 1;
-          if (!euroNumbers.includes(euroNumber)) {
-            euroNumbers.push(euroNumber);
-          } else {
-            i--;
-          }
+      }
+      return numbers;
+    }
+
+    function displayNumbers(numbers, container) {
+      numbers.forEach(number => {
+        const badge = document.createElement('span');
+        badge.classList.add('badge', 'm-1');
+        badge.innerText = number;
+        container.appendChild(badge);
+      });
+    }
+
+    function generateNumbers() {
+      const numbers = generateUniqueNumbers(5, 50);
+      const euroNumbers = generateUniqueNumbers(2, 10);
+      const generatedNumbers = document.getElementById('generatedNumbers');
+      generatedNumbers.innerHTML = '';
+      displayNumbers(numbers, generatedNumbers);
+      generatedNumbers.innerHTML += ' + ';
+      displayNumbers(euroNumbers, generatedNumbers);
+    }
+
+    function sendSms() {
+      const numbers = document.getElementById('generatedNumbers').innerText;
+      let message = `EJ `;
+      document.querySelectorAll('.badge.m-1').forEach((el, index, array) => {
+        message += el.innerText;
+        if (index !== array.length - 1) {
+          message += " ";
         }
-        const generatedNumbers = document.getElementById('generatedNumbers');
-        generatedNumbers.innerHTML = '';
-        numbers.forEach(number => {
-          const badge = document.createElement('span');
-          badge.classList.add('badge', 'm-1');
-          badge.innerText = number;
-          generatedNumbers.appendChild(badge);
-        });
-        generatedNumbers.innerHTML += ' + ';
-        euroNumbers.forEach(euroNumber => {
-          const badge = document.createElement('span');
-          badge.classList.add('badge', 'm-1');
-          badge.innerText = euroNumber;
-          generatedNumbers.appendChild(badge);
-        });
-      }
-      function sendSms() {
-        const numbers = document.getElementById('generatedNumbers').innerText;
-        let message = `EJ `;
-        document.querySelectorAll('.badge.m-1').forEach((el, index, array) => {
-            message += el.innerText;
-            if (index !== array.length - 1) {
-                message += " ";
-            }
-        });
-        window.open(`sms:3333?&body=${encodeURIComponent(message)}`);
-      }
-    </script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    </body>
-    </html>
+      });
+      window.open(`sms:3333?&body=${encodeURIComponent(message)}`);
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+</body>
+
+</html>
