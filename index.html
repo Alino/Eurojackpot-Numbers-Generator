@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="manifest" href="/manifest.json">
-  <title>Random Eurojackpot Numbers Generator</title>
+  <title>Eurojackpot Numbers Generator</title>
   <style>
     body {
       font-family: sans-serif;
@@ -49,6 +49,10 @@
     #generatedNumbers {
         margin: 1rem;
         margin-bottom: 2.5rem;
+        display: flex; /* use flexbox layout */
+        flex-wrap: nowrap; /* prevent wrapping */
+        overflow-x: scroll; /* add horizontal scroll if needed */
+        -webkit-overflow-scrolling: touch; /* enable smooth scrolling on mobile devices */
     }
     #sendSms {
         margin-top: 15px;
