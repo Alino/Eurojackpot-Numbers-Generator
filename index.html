@@ -90,8 +90,14 @@
       }
       function sendSms() {
         const numbers = document.getElementById('generatedNumbers').innerText;
-        const message = `EJ ${numbers}`;
-        window.open(`sms:3333?body=${encodeURIComponent(message)}`);
+        let message = `EJ `;
+        document.querySelectorAll('.badge.m-1').forEach((el, index, array) => {
+            message += el.innerText;
+            if (index !== array.length - 1) {
+                message += " ";
+            }
+        });
+        window.open(`sms:3333?&body=${encodeURIComponent(message)}`);
       }
     </script>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
