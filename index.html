@@ -46,6 +46,13 @@
       font-weight: bold;
       background-color: #008cba;
     }
+    #generatedNumbers {
+        margin: 1rem;
+        margin-bottom: 2.5rem;
+    }
+    #sendSms {
+        margin-top: 15px;
+    }
   </style>
 </head>
 
@@ -55,8 +62,9 @@
   <div>
     <button onclick="generateNumbers()">Generate Numbers</button>
   </div>
-  <p>Generated numbers: <span id="generatedNumbers"></span></p>
-  <div>
+  <p>Generated numbers:</p>
+  <span id="generatedNumbers"></span>
+  <div id="sendSms">
     <button onclick="sendSms()">Send SMS</button>
   </div>
   <script>
