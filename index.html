@@ -94,12 +94,12 @@
 
     function generateNumbers() {
       const numbers = generateUniqueNumbers(5, 50);
-      const euroNumbers = generateUniqueNumbers(2, 10);
+      const powerBallNumbers = generateUniqueNumbers(2, 12);
       const generatedNumbers = document.getElementById('generatedNumbers');
       generatedNumbers.innerHTML = '';
       displayNumbers(numbers, generatedNumbers);
       generatedNumbers.innerHTML += ' + ';
-      displayNumbers(euroNumbers, generatedNumbers);
+      displayNumbers(powerBallNumbers, generatedNumbers);
     }
 
     function sendSms() {
