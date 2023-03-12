@@ -22,6 +22,8 @@
     "params": {
       "text": "Hello, check out this link: {{url}}"
     }
+  },
+  "serviceworker": {
+    "src": "/sw.js"
   }
 }
-    

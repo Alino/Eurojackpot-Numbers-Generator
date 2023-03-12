@@ -113,6 +113,12 @@
       });
       window.open(`sms:3333?&body=${encodeURIComponent(message)}`);
     }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js');
+    });
+}
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
